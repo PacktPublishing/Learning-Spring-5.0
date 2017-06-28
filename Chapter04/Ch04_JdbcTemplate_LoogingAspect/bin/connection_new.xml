@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.packt.ch03.*"></context:component-scan>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/bookDB" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean id="logging" class="com.packt.ch04.aspects.MyLoggingAspect" />
+
+	<!-- <aop:config> <aop:pointcut id="pointcut1" expression="execution(int 
+		com.packt.ch03.dao.*.*(com.packt.ch03.beans.Book))" /> </aop:config> -->
+	<aop:config>
+		<aop:aspect id="myLogger" ref="logging">
+			<aop:pointcut id="pointcut1"
+				expression="execution(* com.packt.ch03.dao.BookDAO.addBook(com.packt.ch03.beans.Book))" />
+			<aop:pointcut id="pointcut2"
+				expression="execution(* com.packt.ch03.dao.BookDAO.*(..))" />
+<!-- 			<aop:before pointcut-ref="pointcut1" method="beforeAdvise" />
+			<aop:after pointcut-ref="pointcut2" method="afterAdvise" />
+			<aop:after-returning pointcut-ref="pointcut2"
+				method="returnAdvise" returning="val" />
+				<aop:after-throwing pointcut-ref="pointcut1"
+				method="throwingAdvise" throwing="exception" />
+				 -->
+			<aop:around pointcut-ref="pointcut1" method="aroundAdvise" />
+			
+
+		</aop:aspect>
+	</aop:config>
+
+</beans>
