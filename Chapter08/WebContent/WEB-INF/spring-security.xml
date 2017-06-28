@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+	<!-- <security:http> <security:intercept-url pattern="/data.htm" access="hasRole('ROLE_USER')" 
+		/> <security:http-basic /> </security:http> -->
+
+	<!-- <security:http> <security:intercept-url pattern="/data.htm" access="hasRole('ROLE_USER')" 
+		/> <security:intercept-url pattern="j_spring_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" 
+		/> <security:intercept-url pattern="" access="IS_AUTHENTICATED_ANONYMOUSLY" 
+		/> <security:form-login login-page="/login1.htm" authentication-failure-url="/login_fail" 
+		/> <security:csrf disabled="true" /> </security:http> -->
+
+	<security:http>
+		<security:intercept-url pattern="/data.htm"
+			access="hasRole('ROLE_USER')" />
+		<security:form-login login-page="/mylogin.htm"
+			authentication-failure-url="/error.htm" />
+		<security:logout logout-success-url="/index.jsp" />
+		<security:csrf disabled="true" />
+		<security:remember-me remember-me-parameter="rem-me"></security:remember-me>
+		<security:session-management
+			invalid-session-url="/index.jsp">
+			<security:concurrency-control
+				max-sessions="1" error-if-maximum-exceeded="false" />
+
+		</security:session-management>
+	</security:http>
+
+	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
+	<!-- <security:authentication-manager> <security:authentication-provider> 
+		<security:user-service> <security:user name="user1" password="user1" authorities="ROLE_USER" 
+		/> <security:user name="user2" password="user2" authorities="ROLE_USER, ROLE_ADMIN" 
+		/> <security:user name="admin" password="admin" authorities="ROLE_ADMIN" 
+		/> </security:user-service> </security:authentication-provider> </security:authentication-manager> -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/bookDB" />
+		<property name="username" value="root" />
+		<property name="password" value="mysql" />
+	</bean>
+
+	<bean id="userDetailsService"
+		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+
+	<security:authentication-manager>
+		<security:authentication-provider
+			user-service-ref="userDetailsService" />
+	</security:authentication-manager>
+
+
+
+</beans>
