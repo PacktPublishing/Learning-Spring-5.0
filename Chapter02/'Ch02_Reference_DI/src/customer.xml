@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="cust_address" class="com.ch02.beans.Address">
+		<property name="build_no" value="2" />
+		<property name="city_name" value="Pune" />
+		<property name="pin_code" value="123" />
+	</bean>
+	<bean id="customer" class="com.ch02.beans.Customer">
+		<property name="cust_id" value="20" />
+		<property name="cust_name" value="bob" />
+		<property name="cust_address" ref="cust_address" />
+	</bean>
+
+	<bean id="customer_const" class="com.ch02.beans.Customer_Constructor_DI">
+		<constructor-arg value="20" index="1"/>
+		<constructor-arg value="bob" index="0"/>
+		<constructor-arg ref="cust_address" index="2"/>
+	</bean>
+
+
+</beans>

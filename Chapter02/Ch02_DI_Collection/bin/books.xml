@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="book1" class="com.ch02.beans.Book">
+		<property name="isbn" value="20Novel" />
+		<property name="book_name" value="princess Sindrella" />
+		<property name="price" value="300" />
+		<property name="publication" value="Packt-Pub"></property>
+	</bean>
+
+	<bean id="book2" class="com.ch02.beans.Book">
+		<constructor-arg value="Java490" />
+		<constructor-arg value="Core Java" />
+		<constructor-arg value="300" />
+		<constructor-arg value="Packt-Pub" />
+	</bean>
+
+	<bean id="book3" class="com.ch02.beans.Book" p:isbn="200Autobiography"
+		p:book_name="Playing it in my way" p:price="300" p:publication="Hodder and Stoughton"></bean>
+
+
+	<bean id="library_list" class="com.ch02.beans.Library_List">
+		<property name="books">
+			<list>
+				<ref bean="book1"></ref>
+				<ref bean="book2"></ref>
+				<ref bean="book3"></ref>
+				<ref bean="book3"></ref>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="library_set" class="com.ch02.beans.Library_Set">
+		<property name="books">
+			<set>
+				<ref bean="book1"></ref>
+				<ref bean="book2"></ref>
+				<ref bean="book3"></ref>
+				<ref bean="book3"></ref>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="library_map" class="com.ch02.beans.Library_Map">
+		<property name="books">
+			<map>
+				<entry key="20Novel" value-ref="book1" />
+				<entry key="200Autobiography" value-ref="book3" />
+				<entry key="Java490" value-ref="book2" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="library_map1" class="com.ch02.beans.Library_Map1">
+		<property name="books">
+			<map>
+				<entry key="20Novel">
+					<list>
+						<ref bean="book1"></ref>
+						<ref bean="book1"></ref>
+					</list>
+				</entry>
+				<entry key="200Autobiography">
+					<list>
+						<ref bean="book3"></ref>
+						<ref bean="book3"></ref>
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="country" class="com.ch02.beans.Country">
+		<property name="name" value="India"></property>
+		<property name="continent" value="Asia"></property>
+		<property name="state_capitals">
+			<props>
+				<prop key="Maharashtra">Mumbai</prop>
+				<prop key="Goa">Panji</prop>
+				<prop key="Punjab">Chandigad</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="library_list1" class="com.ch02.beans.Library_List">
+		<property name="books">
+			<util:list>
+				<ref bean="book1"></ref>
+				<ref bean="book2"></ref>
+				<ref bean="book3"></ref>
+			</util:list>
+		</property>
+	</bean>
+	
+
+
+</beans>

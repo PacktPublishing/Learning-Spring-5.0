@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="car_obj" class="com.ch02.beans.Car">
+		<property name="chassis_number" value="eng2012" />
+		<property name="color" value="baker's chocolate" />
+		<property name="fuel_type" value="petrol" />
+		<property name="average" value="12.50" />
+		<property name="price" value="643800" />
+	</bean>
+	
+	<bean id="car_const" class="com.ch02.beans.Car">
+		<constructor-arg value="eng023"></constructor-arg>
+		<constructor-arg value="green" ></constructor-arg>
+		<constructor-arg value="12" ></constructor-arg>
+		<constructor-arg value="678900"></constructor-arg>
+		<constructor-arg value="petrol"></constructor-arg>
+	</bean>
+	
+	<!--   ambiguous configuration 
+	<bean id="car_const1" class="com.ch02.beans.Car">
+		<constructor-arg value="eng023"></constructor-arg>
+		<constructor-arg value="green" ></constructor-arg>
+		<constructor-arg value="petrol"></constructor-arg>
+		<constructor-arg value="12" ></constructor-arg>
+		<constructor-arg value="678900"></constructor-arg>
+	</bean>
+	 -->
+	<bean id="car_const1" class="com.ch02.beans.Car">
+		<constructor-arg value="eng024" index="0"></constructor-arg>
+		<constructor-arg value="yellow" index="1"></constructor-arg>
+		<constructor-arg value="petrol" index="4"></constructor-arg>
+		<constructor-arg value="15" index="2"></constructor-arg>
+		<constructor-arg value="688900" index="3"></constructor-arg>
+	</bean>
+</beans>
