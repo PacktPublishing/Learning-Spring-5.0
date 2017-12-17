@@ -26,5 +26,3 @@ public static void main(String[] args) {
 
 * [Spring: Developing Java Applications for the Enterprise](https://www.packtpub.com/web-development/spring-developing-java-applications-enterprise?utm_source=github&utm_medium=repository&utm_content=9781787127555)
 
-### Suggestions and Feedback
-[Click here](https://docs.google.com/forms/d/e/1FAIpQLSe5qwunkGf6PUvzPirPDtuy1Du5Rlzew23UBp2S-P3wB-GcwQ/viewform) if you have any feedback or suggestions.
